@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Forensic Analyzer | Tools</title>
+
+<style>
+body{
+  background:#0d1117;
+  color:#c9d1d9;
+  font-family:Arial, sans-serif;
+  padding:40px;
+}
+h1{color:#58a6ff}
+select,input,button{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+  background:#161b22;
+  color:#c9d1d9;
+  border:1px solid #30363d;
+  border-radius:6px;
+}
+button{
+  background:#238636;
+  cursor:pointer;
+  font-weight:bold;
+}
+button:hover{background:#2ea043}
+pre{
+  background:#010409;
+  padding:15px;
+  border-radius:6px;
+  white-space:pre-wrap;
+}
+.box{
+  max-width:500px;
+  margin:auto;
+  background:#161b22;
+  padding:20px;
+  border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🧪 Cyber Tools</h1>
+
+<div class="box">
+
+<select id="tool" onchange="loadInputs()">
+  <option value="">Select Tool</option>
+  <option value="caesar">Caesar Cipher</option>
+  <option value="password">Password Generator</option>
+</select>
+
+<div id="inputs"></div>
+
+<button onclick="runTool()">Run Tool</button>
+
+<pre id="output"></pre>
+
+</div>
+
+<script>
+const BACKEND = "https://YOUR-BACKEND-URL";
+
+function loadInputs(){
+  const tool=document.getElementById("tool").value;
+  let html="";
+
+  if(tool==="caesar"){
+    html=`
+    <select id="mode">
+      <option value="encrypt">Encrypt</option>
+      <option value="decrypt">Decrypt</option>
+      <option value="auto">Auto Decrypt</option>
+    </select>
+    <input id="text" placeholder="Enter text">
+    <input id="shift" placeholder="Shift (number)">
+    `;
+  }
+
+  if(tool==="password"){
+    html=`<input id="length" placeholder="Password length">`;
+  }
+
+  document.getElementById("inputs").innerHTML=html;
+  document.getElementById("output").innerText="";
+}
+
+function runTool(){
+  const tool=document.getElementById("tool").value;
+  if(!tool){alert("Select a tool first");return;}
+
+  let data={};
+
+  if(tool==="caesar"){
+    data={
+      mode:document.getElementById("mode").value,
+      text:document.getElementById("text").value,
+      shift:document.getElementById("shift").value||0
+    };
+  }
+
+  if(tool==="password"){
+    data={length:document.getElementById("length").value||12};
+  }
+
+  fetch(`${BACKEND}/${tool}`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(data)
+  })
+  .then(res=>res.json())
+  .then(res=>{
+    document.getElementById("output").innerText=
+      JSON.stringify(res,null,2);
+  })
+  .catch(()=>{
+    document.getElementById("output").innerText="Backend not reachable";
+  });
+}
+</script>
+
+</body>
+</html>
