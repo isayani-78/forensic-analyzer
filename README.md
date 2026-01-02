@@ -7,11 +7,11 @@ Right now, the project is still under development, and I will keep adding more f
 
 ---
 
-## 📌 Current Features
+## 📌 Current Features 
 
 ✔ Hash Generator (MD5, SHA1, SHA256)  
 ✔ Base64 Encode / Decode  
-✔ Timestamp → Human Time Converter  
+✔ Many additional encryption and decryption tools will be included in the future. 
 
 These tools are basic but useful for learning digital forensics and simple analysis tasks.
 
@@ -22,8 +22,8 @@ These tools are basic but useful for learning digital forensics and simple analy
 - EXIF metadata viewer  
 - File upload → hash generator  
 - Better UI design  
-- More forensic tools  
-- Cleaner layout and dark theme  
+- More forensic tools    
+The following features are planned and will be added as the project evolves.
 
 ---
 
@@ -46,7 +46,8 @@ No installation or setup needed.
 
 - HTML  
 - CSS  
-- JavaScript  
+- JavaScript
+- python
 
 ---
 
