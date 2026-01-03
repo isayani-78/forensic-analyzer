@@ -69,8 +69,13 @@ Once hosted, the project will be available at:
 
 ## 📂 How to Use
 
-Just open the `index.html` file in any browser.  
-No installation or setup needed.
+- Open the hosted website using the provided GitHub Pages link.
+- Navigate to the Tools section from the homepage.
+- Select a tool from the available options (e.g., Caesar Cipher, Password Generator).
+- Enter the required input values in the form fields.
+- Click Run Tool to execute the selected tool.
+- The result will be displayed instantly on the same webpage.
+- Some tools may open or embed external online tools within the interface when selected.
 
 ---
 
