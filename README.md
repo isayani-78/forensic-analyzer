@@ -26,7 +26,7 @@ The following features are planned and will be added as the project evolves.
 
 ---
 
-✅ Functional Requirements
+## ✅ Functional Requirements
 
 - The system shall provide a web-based interface to access multiple cybersecurity and forensic tools.
 - The system shall allow users to select tools option-wise (e.g., Caesar Cipher, Password Generator).
@@ -44,7 +44,7 @@ The following features are planned and will be added as the project evolves.
 
 ---
 
-✅ Non-Functional Requirements
+## ✅ Non-Functional Requirements
 
 - The system shall be platform-independent and accessible through any modern web browser.
 - The system shall provide a user-friendly and intuitive interface suitable for beginners.
