@@ -29,7 +29,7 @@ The following features are planned and will be added as the project evolves.
 ## ✅ Functional Requirements
 
 - The system shall provide a web-based interface to access multiple cybersecurity and forensic tools.
-- The system shall allow users to select tools option-wise (e.g., Caesar Cipher, Password Generator).
+- The system shall allow users to select tools option-wise .
 - The system shall support Caesar Cipher operations, including:
   * Encryption
   * Decryption
