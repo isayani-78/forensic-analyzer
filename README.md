@@ -18,7 +18,7 @@ These tools are basic but useful for learning digital forensics and simple analy
 
 ## 🚧 Upcoming Features (Planned)
 
-- EXIF metadata viewer  
+- EXIF metadata viewer.  
 - File upload → hash generator  
 - Better UI design  
 - More forensic tools    
