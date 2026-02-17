@@ -31,8 +31,8 @@ The following features are planned and will be added as the project evolves.
 - The system shall provide a web-based interface to access multiple cybersecurity and forensic tools.
 - The system shall allow users to select tools option-wise .
 - The system shall support Caesar Cipher operations, including:
-  * Encryption
-  * Decryption
+  * Encryption.
+  * Decryption.
   * Automatic key detection (auto-decrypt)
 - The system shall generate strong random passwords based on user-defined length.
 - The system shall accept user input through web forms and process it using backend logic.
