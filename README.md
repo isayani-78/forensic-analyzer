@@ -8,7 +8,7 @@ Right now, the project is still under development, and I will keep adding more f
 
 ## 📌 Current Features 
 
-✔ Hash Generator (MD5, SHA1, SHA256).  
+✔ Hash Generator (MD5, SHA1, SHA256). 
 ✔ Base64 Encode / Decode.  
 ✔ Many additional encryption and decryption tools will be included in the future. 
 
