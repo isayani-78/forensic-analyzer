@@ -33,7 +33,7 @@ The following features are planned and will be added as the project evolves.
 - The system shall support Caesar Cipher operations, including:
   * Encryption.
   * Decryption.
-  * Automatic key detection (auto-decrypt)
+  * Automatic key detection (auto-decrypt).
 - The system shall generate strong random passwords based on user-defined length.
 - The system shall accept user input through web forms and process it using backend logic.
 - The system shall execute Python-based tools on the backend and return results to the frontend.
