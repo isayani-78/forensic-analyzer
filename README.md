@@ -1,4 +1,4 @@
-# 🔍 Forensic Analyzer (Work in Progress)
+# 🔍 Forensic Analyzer (Work in Progress) 
 
 It is a simple **browser-based forensic tool** made using HTML, CSS, and JavaScript.
 
