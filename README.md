@@ -1,6 +1,6 @@
 # 🔍 Forensic Analyzer (Work in Progress) 
 
-It is a simple **browser-based forensic tool** made using HTML, CSS, and JavaScript.
+It is a simple **browser-based forensic tool** made using HTML, CSS, and JavaScript. 
 
 Right now, the project is still under development, and I will keep adding more features as I learn. 
 
