@@ -6,7 +6,7 @@ Right now, the project is still under development, and I will keep adding more f
 
 ---
 
-## 📌 Current Features 
+## 📌 Current Features
 
 ✔ Hash Generator (MD5, SHA1, SHA256). 
 ✔ Base64 Encode / Decode.  
