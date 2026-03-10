@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Forensic Analyzer | Cyber Tools</title>
+
+<style>
+
+body{
+background:#0d1117;
+color:#c9d1d9;
+font-family:Arial,Helvetica,sans-serif;
+margin:0;
+}
+
+header{
+background:#161b22;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #30363d;
+}
+
+header h1{
+color:#58a6ff;
+font-size:22px;
+}
+
+nav a{
+color:#c9d1d9;
+text-decoration:none;
+margin-left:20px;
+}
+
+.hero{
+text-align:center;
+padding:60px 20px;
+}
+
+.hero h2{
+font-size:36px;
+color:#58a6ff;
+}
+
+.tools{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+padding:40px;
+}
+
+.card{
+background:#161b22;
+padding:20px;
+border-radius:10px;
+border:1px solid #30363d;
+text-align:center;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+border-color:#58a6ff;
+}
+
+.card img{
+width:100%;
+height:150px;
+object-fit:cover;
+border-radius:6px;
+}
+
+.card button{
+margin-top:10px;
+padding:10px;
+width:100%;
+background:#238636;
+border:none;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+#toolArea{
+max-width:600px;
+margin:auto;
+padding:40px;
+}
+
+input,select,button{
+width:100%;
+padding:10px;
+margin-top:10px;
+background:#0d1117;
+border:1px solid #30363d;
+color:#c9d1d9;
+border-radius:6px;
+}
+
+.run{
+background:#238636;
+cursor:pointer;
+}
+
+pre{
+background:#010409;
+padding:15px;
+margin-top:15px;
+border-radius:6px;
+}
+
+iframe{
+width:100%;
+height:600px;
+border:none;
+}
+
+footer{
+text-align:center;
+padding:20px;
+border-top:1px solid #30363d;
+margin-top:40px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Forensic Analyzer</h1>
+
+<nav>
+<a href="/">Home</a>
+<a href="#tools">Tools</a>
+</nav>
+</header>
+
+<section class="hero">
+<h2>Web-Based Forensic & Cybersecurity Toolkit</h2>
+<p>
+Launch multiple forensic and cybersecurity tools from a single interface.
+</p>
+</section>
+
+<section class="tools" id="tools">
+
+<div class="card">
+<img src="images/caesar.jpg">
+<h3>Caesar Cipher</h3>
+<p>Encrypt and decrypt text using Caesar cipher.</p>
+<button onclick="openTool('caesar')">Launch Tool</button>
+</div>
+
+<div class="card">
+<img src="images/password.jpg">
+<h3>Password Generator</h3>
+<p>Generate strong random passwords.</p>
+<button onclick="openTool('password')">Launch Tool</button>
+</div>
+
+<div class="card">
+<img src="images/hash.jpg">
+<h3>Online Hash Tool</h3>
+<p>Use external cybersecurity tools.</p>
+<button onclick="openExternal()">Open Tool</button>
+</div>
+
+</section>
+
+<div id="toolArea"></div>
+
+<div id="externalTool"></div>
+
+<footer>
+Forensic Analyzer | Cybersecurity Toolkit
+</footer>
+
+<script>
+
+const BACKEND_API = "https://YOUR-BACKEND-API";
+
+function openTool(tool){
+
+document.getElementById("externalTool").innerHTML="";
+
+let html="";
+
+if(tool==="caesar"){
+html=`
+<h2>Caesar Cipher Tool</h2>
+
+<select id="mode">
+<option value="encrypt">Encrypt</option>
+<option value="decrypt">Decrypt</option>
+<option value="auto">Auto Decrypt</option>
+</select>
+
+<input id="text" placeholder="Enter text">
+
+<input id="shift" placeholder="Shift key">
+
+<button class="run" onclick="runCaesar()">Run Tool</button>
+
+<pre id="output"></pre>
+`;
+}
+
+if(tool==="password"){
+html=`
+<h2>Password Generator</h2>
+
+<input id="length" placeholder="Password length">
+
+<button class="run" onclick="runPassword()">Generate Password</button>
+
+<pre id="output"></pre>
+`;
+}
+
+document.getElementById("toolArea").innerHTML=html;
+
+}
+
+function runCaesar(){
+
+let data={
+mode:document.getElementById("mode").value,
+text:document.getElementById("text").value,
+shift:document.getElementById("shift").value || 0
+};
+
+fetch(BACKEND_API+"/caesar",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify(data)
+})
+.then(res=>res.json())
+.then(res=>{
+document.getElementById("output").innerText=JSON.stringify(res,null,2);
+})
+.catch(()=>{
+document.getElementById("output").innerText="Backend not reachable";
+});
+
+}
+
+function runPassword(){
+
+let data={
+length:document.getElementById("length").value || 12
+};
+
+fetch(BACKEND_API+"/password",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify(data)
+})
+.then(res=>res.json())
+.then(res=>{
+document.getElementById("output").innerText=JSON.stringify(res,null,2);
+})
+.catch(()=>{
+document.getElementById("output").innerText="Backend not reachable";
+});
+
+}
+
+function openExternal(){
+
+document.getElementById("toolArea").innerHTML="";
+
+document.getElementById("externalTool").innerHTML=
+`<iframe src="https://emn178.github.io/online-tools/md5.html"></iframe>`;
+
+}
+
+</script>
+
+</body>
+</html>
