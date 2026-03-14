@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" class="page-tool">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Password Generator</title>
+  <link rel="stylesheet" href="/assets/css/pages.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <div class="pane pane-left">
+    <header class="header">
+      <div class="eyebrow header-eyebrow">Cryptographic Utility</div>
+      <h1>Password <em>Generator</em></h1>
+    </header>
+
+    <div class="panel">
+
+      <div class="panel-section">
+        <div class="section-label">Length</div>
+        <div class="algo-grid">
+          <div class="algo-chip">
+            <input type="radio" id="len-16" name="length" value="16" checked />
+            <label for="len-16"><span class="dot"></span>16</label>
+          </div>
+          <div class="algo-chip">
+            <input type="radio" id="len-32" name="length" value="32" />
+            <label for="len-32"><span class="dot"></span>32</label>
+          </div>
+          <div class="algo-chip">
+            <input type="radio" id="len-64" name="length" value="64" />
+            <label for="len-64"><span class="dot"></span>64</label>
+          </div>
+          <div class="algo-chip">
+            <input type="radio" id="len-custom" name="length" value="custom" />
+            <label for="len-custom"><span class="dot"></span>Custom</label>
+          </div>
+        </div>
+        <input class="filename-input" type="number" id="customLen" min="8" max="256" value="24"
+          style="display:none; margin-top:12px; width:100%; border:1px solid var(--border); padding:8px 12px;" />
+      </div>
+
+      <div class="panel-section">
+        <div class="section-label">Character set</div>
+        <div class="algo-grid">
+          <div class="algo-chip">
+            <input type="checkbox" id="opt-upper" value="upper" checked />
+            <label for="opt-upper"><span class="dot"></span>A–Z</label>
+          </div>
+          <div class="algo-chip">
+            <input type="checkbox" id="opt-lower" value="lower" checked />
+            <label for="opt-lower"><span class="dot"></span>a–z</label>
+          </div>
+          <div class="algo-chip">
+            <input type="checkbox" id="opt-digits" value="digits" checked />
+            <label for="opt-digits"><span class="dot"></span>0–9</label>
+          </div>
+          <div class="algo-chip">
+            <input type="checkbox" id="opt-symbols" value="symbols" checked />
+            <label for="opt-symbols"><span class="dot"></span>!@#…</label>
+          </div>
+          <div class="algo-chip">
+            <input type="checkbox" id="opt-nolook" value="nolook" checked />
+            <label for="opt-nolook"><span class="dot"></span>No lookalikes</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <button class="btn-generate" id="genBtn">Generate</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="pane pane-right">
+    <div class="results-label results-label--simple" id="resultsHeader">Output</div>
+    <div id="results">
+      <div class="results-empty">
+        <span class="results-empty-icon">◈</span>
+        <p>Password will appear here</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="./app.js"></script>
+</body>
+</html>

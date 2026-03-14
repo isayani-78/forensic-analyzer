@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" class="page-tool">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caesar Cipher</title>
+  <link rel="stylesheet" href="/assets/css/pages.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <div class="pane pane-left">
+    <header class="header">
+      <div class="eyebrow header-eyebrow">Substitution Cipher</div>
+      <h1>Caesar <em>Cipher</em></h1>
+      <p class="header-sub">All processing happens locally.<br>No data is transmitted.</p>
+    </header>
+
+    <div class="panel">
+
+      <div class="panel-section">
+        <div class="section-label">Mode</div>
+        <div class="algo-grid">
+          <div class="algo-chip">
+            <input type="radio" id="mode-encrypt" name="mode" value="encrypt" checked />
+            <label for="mode-encrypt"><span class="dot"></span>Encrypt</label>
+          </div>
+          <div class="algo-chip">
+            <input type="radio" id="mode-decrypt" name="mode" value="decrypt" />
+            <label for="mode-decrypt"><span class="dot"></span>Decrypt</label>
+          </div>
+          <div class="algo-chip">
+            <input type="radio" id="mode-auto" name="mode" value="auto" />
+            <label for="mode-auto"><span class="dot"></span>Auto</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-section" id="shiftSection">
+        <div class="section-label">Shift</div>
+        <div style="display:flex; gap:10px; align-items:center; margin-top:10px;">
+          <input type="range" id="shiftRange" min="1" max="25" value="13"
+            style="flex:1;" />
+          <span id="shiftVal" style="font-family:var(--font-mono); font-size:var(--fs-sm);
+            color:var(--text); min-width:24px; text-align:right;">13</span>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="section-label">Input</div>
+        <textarea id="input" rows="6" spellcheck="false"></textarea>
+      </div>
+
+      <div class="panel-section">
+        <button class="btn-generate" id="runBtn">Run</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="pane pane-right">
+    <div class="results-label results-label--simple" id="resultsHeader">Output</div>
+    <div id="results">
+      <div class="results-empty">
+        <span class="results-empty-icon">◈</span>
+        <p>Output will appear here</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="./app.js"></script>
+</body>
+</html>

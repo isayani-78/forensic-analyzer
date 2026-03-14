@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" class="page-tool">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Base64</title>
+  <link rel="stylesheet" href="/assets/css/pages.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <div class="pane pane-left">
+    <header class="header">
+      <div class="eyebrow header-eyebrow">Encoding Utility</div>
+      <h1>Base64 text <em>Encoder</em><br>/ Decoder</h1>
+    </header>
+
+    <div class="panel">
+
+      <div class="panel-section">
+        <div class="section-label">Mode</div>
+        <div class="algo-grid">
+          <div class="algo-chip">
+            <input type="radio" id="mode-encode" name="mode" value="encode" checked />
+            <label for="mode-encode"><span class="dot"></span>Encode</label>
+          </div>
+          <div class="algo-chip">
+            <input type="radio" id="mode-decode" name="mode" value="decode" />
+            <label for="mode-decode"><span class="dot"></span>Decode</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="section-label">Input</div>
+        <textarea id="input" rows="3" spellcheck="false"></textarea>
+      </div>
+
+      <div class="panel-section">
+        <button class="btn-generate" id="runBtn">Run</button>
+      </div>
+
+      <div class="panel-section">
+        <div class="section-label">Options</div>
+        <div class="algo-grid">
+          <div class="algo-chip">
+            <input type="checkbox" id="opt-url" name="opt" value="url" />
+            <label for="opt-url"><span class="dot"></span>URL-safe</label>
+          </div>
+          <div class="algo-chip">
+            <input type="checkbox" id="opt-wrap" name="opt" value="wrap" />
+            <label for="opt-wrap"><span class="dot"></span>Wrap at 76</label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="pane pane-right">
+    <div class="results-label results-label--simple" id="resultsHeader">Output</div>
+    <div id="results">
+      <div class="results-empty">
+        <span class="results-empty-icon">◈</span>
+        <p>Output will appear here</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="./app.js"></script>
+</body>
+</html>
