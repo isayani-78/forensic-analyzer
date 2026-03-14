@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" class="page-tool">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hash Tool</title>
+  <link rel="stylesheet" href="/assets/css/pages.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <div class="pane pane-left">
+    <header class="header">
+      <div class="eyebrow header-eyebrow">Cryptographic Utility</div>
+      <h1>File <em>Hash</em><br>Computer</h1>
+      <p class="header-sub">Upload a file and get its cryptographic hash. Supports multiple algorithms.</p>
+    </header>
+
+    <div class="panel">
+
+      <div class="panel-section">
+        <div class="drop" id="drop">
+          <input type="file" id="file" hidden />
+          <span class="drop-icon">⬡</span>
+          <div class="drop-main">Drop file here or click to select</div>
+          <div class="drop-hint">Any file type &nbsp;·&nbsp; Processed locally</div>
+        </div>
+        <div class="file-info" id="fileInfo">
+          <span class="file-info-name" id="fileName"></span>
+          <span class="file-info-size" id="fileSize"></span>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="section-label">Algorithms</div>
+        <div class="algo-grid">
+          <div class="algo-chip">
+            <input type="checkbox" id="algo-md5" name="algo" value="MD5" />
+            <label for="algo-md5"><span class="dot"></span>MD5</label>
+          </div>
+          <div class="algo-chip">
+            <input type="checkbox" id="algo-sha1" name="algo" value="SHA-1" />
+            <label for="algo-sha1"><span class="dot"></span>SHA-1</label>
+          </div>
+          <div class="algo-chip">
+            <input type="checkbox" id="algo-sha256" name="algo" value="SHA-256" checked />
+            <label for="algo-sha256"><span class="dot"></span>SHA-256</label>
+          </div>
+          <div class="algo-chip">
+            <input type="checkbox" id="algo-sha384" name="algo" value="SHA-384" />
+            <label for="algo-sha384"><span class="dot"></span>SHA-384</label>
+          </div>
+          <div class="algo-chip">
+            <input type="checkbox" id="algo-sha512" name="algo" value="SHA-512" checked />
+            <label for="algo-sha512"><span class="dot"></span>SHA-512</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <button class="btn-generate" id="hashBtn" disabled>Compute Hashes</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="pane pane-right">
+    <div class="results-label results-label--simple" id="resultsHeader">Output</div>
+    <div id="results">
+      <div class="results-empty">
+        <span class="results-empty-icon">◈</span>
+        <p>Hashes will appear here</p>
+        <p class="results-empty-hint">Select a file and choose algorithms</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="./hash.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>

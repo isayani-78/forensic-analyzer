@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" class="page-tool">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Folder Archiver</title>
+  <link rel="stylesheet" href="/assets/css/pages.css" />
+</head>
+<body>
+
+<div class="app">
+
+
+  <div class="pane pane-left">
+
+    <header class="header">
+      <div class="eyebrow header-eyebrow">Folder Utility</div>
+      <h1>Folder <em>Archiver</em></h1>
+      <p class="header-sub">Select a folder to compress into a <code>.tar.gz</code> archive.</p>
+    </header>
+
+    <div class="panel">
+
+      <div class="panel-section">
+        <div class="drop" id="drop">
+          <input type="file" id="folder" webkitdirectory hidden />
+          <span class="drop-icon">▤</span>
+          <div class="drop-main">Click to select a folder</div>
+          <div class="drop-hint">Or drag a folder here</div>
+        </div>
+        <div class="folder-info" id="folderInfo">
+          <span class="folder-info-name" id="folderName"></span>
+          <span class="folder-info-count" id="folderCount"></span>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="section-label">Output filename</div>
+        <div class="filename-row">
+          <input class="filename-input" id="outputName" type="text" value="archive" spellcheck="false" />
+          <span class="filename-ext">.tar.gz</span>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <button class="btn-generate" id="archiveBtn" disabled>
+          <span id="btnLabel">Create Archive</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="pane pane-right">
+    <div class="results-label" id="treeLabel">File Preview</div>
+    <div id="treeContainer">
+      <div class="results-empty">
+        <span class="results-empty-icon">▤</span>
+        <p>No folder selected</p>
+        <p class="results-empty-hint">Select a folder to preview its contents</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>

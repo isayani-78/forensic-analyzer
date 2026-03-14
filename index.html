@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forensic Toolkit</title>
+  <link rel="stylesheet" href="/assets/css/pages.css" />
+  <style>
+    html, body { height: 100%; overflow: hidden; }
+    .shell { height: 100vh; grid-template-columns: 320px 1px 1fr; overflow: hidden; }
+    .sidebar { height: 100vh; overflow: hidden; }
+  </style>
+</head>
+<body>
+
+<div class="shell">
+
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="eyebrow brand-eyebrow">Browser-based</div>
+      <h1 style="cursor:pointer" id="brandTitle">Forensic <em>Toolkit</em></h1>
+      <p class="brand-sub">Cryptography utilities and analysis tools.<br>Everything runs locally — nothing is transmitted.</p>
+    </div>
+    <nav class="nav">
+      <div class="nav-label">Tools</div>
+      <button class="nav-link" data-tool="hash" data-name="Hash Generator"><span class="nav-link-icon">#</span>Hash Generator</button>
+      <button class="nav-link" data-tool="base64" data-name="Base64"><span class="nav-link-icon">⇄</span>Base64</button>
+      <button class="nav-link" data-tool="archiver" data-name="Folder Archiver"><span class="nav-link-icon">▤</span>Folder Archiver</button>
+      <button class="nav-link" data-tool="caesar" data-name="Caesar Cipher"><span class="nav-link-icon">⟳</span>Caesar Cipher</button>
+      <button class="nav-link" data-tool="password" data-name="Password Generator"><span class="nav-link-icon">⬡</span>Password Generator</button>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="meta-list">
+        <span class="meta-item">Zero network requests</span>
+        <span class="meta-item">No accounts or tracking</span>
+        <span class="meta-item">Runs 100% in your browser</span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="divider-v"></div>
+
+
+  <div class="right-panel">
+
+
+    <div class="tool-bar" id="toolBar">
+      <div class="tool-bar-left">
+        <button class="tool-bar-back" id="backBtn">
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1L3 5.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          All tools
+        </button>
+        <span class="tool-bar-divider">/</span>
+        <span class="tool-bar-name" id="toolBarName"></span>
+      </div>
+      <div class="tool-bar-right">
+        <span class="tool-bar-badge">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="5" cy="5" r="3.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 3.5V5.5L6.5 6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          local only
+        </span>
+        <span class="tool-bar-badge">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4.5" width="6" height="4.5" rx="0" stroke="currentColor" stroke-width="1.2"/><path d="M3.5 4.5V3a1.5 1.5 0 0 1 3 0v1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          no upload
+        </span>
+      </div>
+    </div>
+
+
+    <div class="grid-view" id="gridView">
+      <div class="eyebrow main-eyebrow">All tools</div>
+      <div class="tool-grid">
+
+        <button class="tool-card" data-tool="hash" data-name="Hash Generator">
+          <div class="tool-card-header"><div class="tool-card-icon">#</div><span class="tool-card-arrow">↗</span></div>
+          <div class="tool-card-name">Hash Generator</div>
+          <div class="tool-card-desc">Compute MD5, SHA-1, SHA-256, SHA-384, and SHA-512 hashes from any file or text input.</div>
+          <div class="tool-card-tags"><span class="tag">MD5</span><span class="tag">SHA-256</span><span class="tag">SHA-512</span><span class="tag">File</span></div>
+        </button>
+
+        <button class="tool-card" data-tool="base64" data-name="Base64">
+          <div class="tool-card-header"><div class="tool-card-icon">⇄</div><span class="tool-card-arrow">↗</span></div>
+          <div class="tool-card-name">Base64</div>
+          <div class="tool-card-desc">Encode plaintext to Base64 or decode Base64 strings back to their original form.</div>
+          <div class="tool-card-tags"><span class="tag">Encode</span><span class="tag">Decode</span><span class="tag">Text</span></div>
+        </button>
+
+        <button class="tool-card" data-tool="archiver" data-name="Folder Archiver">
+          <div class="tool-card-header"><div class="tool-card-icon">▤</div><span class="tool-card-arrow">↗</span></div>
+          <div class="tool-card-name">Folder Archiver</div>
+          <div class="tool-card-desc">Select or drop any folder and download it as a compressed <code>.tar.gz</code> archive. Nothing is uploaded.</div>
+          <div class="tool-card-tags"><span class="tag">.tar.gz</span><span class="tag">Compress</span><span class="tag">Local</span></div>
+        </button>
+
+        <button class="tool-card" data-tool="caesar" data-name="Caesar Cipher">
+          <div class="tool-card-header"><div class="tool-card-icon">⟳</div><span class="tool-card-arrow">↗</span></div>
+          <div class="tool-card-name">Caesar Cipher</div>
+          <div class="tool-card-desc">Encrypt or decrypt text with a shift cipher. Auto-decrypt mode brute-forces all 25 possible shifts.</div>
+          <div class="tool-card-tags"><span class="tag">Encrypt</span><span class="tag">Decrypt</span><span class="tag">Brute-force</span></div>
+        </button>
+
+        <button class="tool-card" data-tool="password" data-name="Password Generator">
+          <div class="tool-card-header"><div class="tool-card-icon">⬡</div><span class="tool-card-arrow">↗</span></div>
+          <div class="tool-card-name">Password Generator</div>
+          <div class="tool-card-desc">Generate cryptographically strong passwords using <code>crypto.getRandomValues()</code> with guaranteed character class coverage.</div>
+          <div class="tool-card-tags"><span class="tag">CSPRNG</span><span class="tag">Entropy</span><span class="tag">No lookalikes</span></div>
+        </button>
+
+      </div>
+
+      <div class="section-divider">
+        <span class="section-divider-label">About</span>
+        <div class="section-divider-line"></div>
+      </div>
+
+      <div class="info-panel">
+        <div>
+          <div class="info-block-label">Privacy</div>
+          <div class="info-block-items">
+            <span class="info-block-item">No data leaves your device</span>
+            <span class="info-block-item">No analytics or tracking</span>
+            <span class="info-block-item">No server-side processing</span>
+          </div>
+        </div>
+        <div>
+          <div class="info-block-label">Cryptography</div>
+          <div class="info-block-items">
+            <span class="info-block-item">WebCrypto API for SHA family</span>
+            <span class="info-block-item">Pure JS MD5 implementation</span>
+            <span class="info-block-item">CSPRNG for all randomness</span>
+          </div>
+        </div>
+        <div>
+          <div class="info-block-label">Stack</div>
+          <div class="info-block-items">
+            <span class="info-block-item">Vanilla JS, no frameworks</span>
+            <span class="info-block-item">Zero dependencies</span>
+            <span class="info-block-item">Single-file tools</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <iframe class="tool-frame" id="toolFrame" title="Tool"></iframe>
+
+  </div>
+
+</div>
+
+<script>
+  const navLinks   = document.querySelectorAll('.nav-link[data-tool]');
+  const toolCards  = document.querySelectorAll('.tool-card[data-tool]');
+  const toolBar    = document.getElementById('toolBar');
+  const toolBarName = document.getElementById('toolBarName');
+  const backBtn    = document.getElementById('backBtn');
+  const gridView   = document.getElementById('gridView');
+  const toolFrame  = document.getElementById('toolFrame');
+  const brandTitle = document.getElementById('brandTitle');
+
+  function openTool(src, name) {
+    toolFrame.src = src;
+    toolBarName.textContent = name;
+    toolBar.classList.add('visible');
+    gridView.classList.add('hidden');
+    toolFrame.classList.add('visible');
+    navLinks.forEach(l => l.classList.toggle('active', l.dataset.tool === src));
+    document.title = name + ' — Forensic Toolkit';
+  }
+
+  function goHome() {
+    toolFrame.src = '';
+    toolBar.classList.remove('visible');
+    gridView.classList.remove('hidden');
+    toolFrame.classList.remove('visible');
+    navLinks.forEach(l => l.classList.remove('active'));
+    document.title = 'Forensic Toolkit';
+  }
+
+  navLinks.forEach(btn => btn.addEventListener('click', () => openTool(btn.dataset.tool, btn.dataset.name)));
+  toolCards.forEach(btn => btn.addEventListener('click', () => openTool(btn.dataset.tool, btn.dataset.name)));
+  backBtn.addEventListener('click', goHome);
+  brandTitle.addEventListener('click', goHome);
+</script>
+
+</body>
+</html>

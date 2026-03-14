@@ -1,0 +1,3 @@
+/* esm.sh - queue-tick@1.0.1 */
+var i=Object.create;var a=Object.defineProperty;var m=Object.getOwnPropertyDescriptor;var p=Object.getOwnPropertyNames;var l=Object.getPrototypeOf,n=Object.prototype.hasOwnProperty;var d=(e,o)=>()=>(o||e((o={exports:{}}).exports,o),o.exports);var j=(e,o,t,u)=>{if(o&&typeof o=="object"||typeof o=="function")for(let r of p(o))!n.call(e,r)&&r!==t&&a(e,r,{get:()=>o[r],enumerable:!(u=m(o,r))||u.enumerable});return e};var k=(e,o,t)=>(t=e!=null?i(l(e)):{},j(o||!e||!e.__esModule?a(t,"default",{value:e,enumerable:!0}):t,e));var f=d((x,c)=>{c.exports=typeof queueMicrotask=="function"?queueMicrotask:e=>Promise.resolve().then(e)});var s=k(f()),M=s.default??s;export{M as default};
+//# sourceMappingURL=queue-tick.mjs.map
