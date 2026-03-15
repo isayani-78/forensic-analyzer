@@ -1,5 +1,5 @@
-import * as tar from "/assets/vendor/tar-stream.mjs";
-import { Gzip } from "/assets/vendor/fflate.mjs";
+import * as tar from "assets/vendor/tar-stream.mjs";
+import { Gzip } from "assets/vendor/fflate.mjs";
 
 self.onmessage = async e => {
   const files = e.data;
