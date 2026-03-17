@@ -14,7 +14,7 @@ body {
     color: #00ffcc;
     scroll-behavior: smooth;
     overflow-x: hidden;
-    /* Grid Pattern - Ager code theke neoa */
+    /* Grid Pattern */
     background-image: 
         linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
@@ -106,7 +106,7 @@ input, textarea {
     color: #00ff44;
 }
 
-/* Creator Dossier (No Pic placeholder) */
+/* Creator Dossier */
 .creator-details {
     max-width: 900px;
     margin: 0 auto;
@@ -134,8 +134,21 @@ input, textarea {
     text-align: left;
 }
 
+/* Footer Styling like the provided screenshot */
+footer {
+    padding: 40px 20px;
+    text-align: center;
+    background: transparent;
+    color: #555;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border-top: 1px solid rgba(0, 255, 204, 0.05);
+}
+
 @media (max-width: 768px) {
     h1 { font-size: 2.5rem; }
+    footer { letter-spacing: 1px; font-size: 0.65rem; }
 }
 </style>
 </head>
@@ -273,7 +286,7 @@ input, textarea {
     </div>
 </section>
 
-<!-- 11 CREATOR DETAILS (Photo space removed as requested) -->
+<!-- 09 CREATOR DETAILS -->
 <section id="creator">
     <h2>[09] System Architect</h2>
     <div class="creator-details">
@@ -291,23 +304,21 @@ input, textarea {
     </div>
 </section>
 
-<!-- 12 FINAL -->
+<!-- 10 FINAL -->
 <section id="disclaimer">
     <h2>[10] Legal Disclaimer</h2>
     <div class="card" style="border-color: #ff3300;">
-        <p style="color: #ff3300; font-weight: bold;">USAGE NOTICE:</p>
-        <p>This workstation is strictly for educational, ethical hacking, and authorized digital forensic purposes. Unauthorized use of these tools against systems or data without explicit permission is illegal and unethical.</p>
+        <p style="color: #ff3300; font-weight: bold; margin-bottom: 10px;">USAGE NOTICE:</p>
+        <p style="margin-bottom: 20px;">This workstation is strictly for educational, ethical hacking, and authorized digital forensic purposes. Unauthorized use of these tools against systems or data without explicit permission is illegal and unethical.</p>
     </div>
     <div style="text-align: center; margin-top: 50px;">
         <button class="btn" onclick="window.scrollTo(0,0)">Return to Top</button>
     </div>
 </section>
-    <footer>
-        <p>Authorized for educational purposes only.| © 2026 Forensic Analyzer</p>
-    </footer>
 
- <script>
-
+<footer>
+    Authorized for educational purposes only. | © 2026 Forensic Analyzer
+</footer>
 
 <script>
 const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+{}[]|:;<>,.?/~` ";
