@@ -1,170 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Forensic Analyzer | Tactical Console</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Forensic Analyzer | Tactical Console v2.6</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-/* Cyber-Ops Grid Background & Theme */
-body {
-    margin:0;
-    font-family: 'Courier New', monospace;
-    background-color: #0a0f18;
-    color: #00ffcc;
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-    /* Grid Pattern */
-    background-image: 
-        linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
-    background-size: 30px 30px;
-}
+    <style>
+        /* Cyber-Ops Theme */
+        :root {
+            --primary: #00ffcc;
+            --bg-black: #000000;
+            --accent-gold: #ffcc00;
+            --text-dim: #aaddcc;
+            --card-bg: rgba(15, 20, 30, 0.9);
+        }
 
-/* Slide/Section Layout */
-section {
-    min-height: 100vh;
-    padding: 80px 40px;
-    box-sizing: border-box;
-    border-bottom: 1px solid rgba(0, 255, 204, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+        body {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            background-color: var(--bg-black);
+            color: var(--primary);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            /* Digital grid pattern */
+            background-image: 
+                linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
 
-/* Animations */
-@keyframes glow {
-    from { text-shadow: 0 0 10px #00ffcc; }
-    to { text-shadow: 0 0 30px #00ffcc; }
-}
+        /* Compact Navigation Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
 
-/* Scanned Animation Function (Scanline) */
-@keyframes scanline {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100vh); }
-}
+        header nav a {
+            color: var(--primary);
+            text-decoration: none;
+            padding: 12px 15px; 
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            transition: 0.3s;
+        }
 
-.scanline {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 2px;
-    background: rgba(0, 255, 204, 0.2);
-    box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
-    z-index: 1000;
-    pointer-events: none;
-    animation: scanline 4s linear infinite;
-}
+        header nav a:hover {
+            background: rgba(0, 255, 204, 0.1);
+            color: #fff;
+        }
 
-/* Typography */
-h1 { font-size: 4rem; animation: glow 1s infinite alternate; margin: 0; text-align: center; }
-h2 { font-size: 2.5rem; border-left: 5px solid #00ffcc; padding-left: 20px; color: #fff; text-transform: uppercase; margin-bottom: 30px; }
-h3 { color: #00ffcc; text-transform: uppercase; margin-top: 0; }
-p { line-height: 1.6; font-size: 1.1rem; color: #aaddcc; max-width: 800px; }
+        /* Section/Slide Layout */
+        section {
+            min-height: 100vh;
+            padding: 80px 20px 60px;
+            box-sizing: border-box;
+            border-bottom: 1px solid rgba(0, 255, 204, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
 
-/* Buttons and UI */
-.btn {
-    background: rgba(0, 255, 204, 0.1);
-    color: #00ffcc;
-    padding: 12px 25px;
-    border: 1px solid #00ffcc;
-    cursor: pointer;
-    margin: 10px 5px;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-family: 'Courier New', monospace;
-    transition: 0.3s;
-}
-.btn:hover { background: #00ffcc; color: #000; box-shadow: 0 0 20px #00ffcc; }
+        /* Animations */
+        @keyframes glow {
+            from { text-shadow: 0 0 10px var(--primary); }
+            to { text-shadow: 0 0 30px var(--primary); }
+        }
 
-.card {
-    background: rgba(15, 23, 42, 0.9);
-    padding: 30px;
-    margin: 20px 0;
-    border: 1px solid rgba(0, 255, 204, 0.2);
-    border-radius: 5px;
-    transition: 0.3s;
-}
-.card:hover { border-color: #00ffcc; box-shadow: 0 0 15px rgba(0, 255, 204, 0.1); }
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
 
-input, textarea {
-    width: calc(100% - 22px);
-    padding: 10px;
-    margin: 10px 0;
-    background: #050505;
-    color: #00ffcc;
-    border: 1px solid rgba(0, 255, 204, 0.3);
-    font-family: 'Courier New', monospace;
-}
+        /* Restricted Scanline for Cover Only */
+        #cover .scanline {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: rgba(0, 255, 204, 0.5);
+            box-shadow: 0 0 15px var(--primary);
+            z-index: 10;
+            pointer-events: none;
+            animation: scanline 4s linear infinite;
+        }
 
-.output {
-    background: #000;
-    padding: 15px;
-    margin-top: 10px;
-    height: 150px;
-    overflow: auto;
-    white-space: pre-wrap;
-    border: 1px solid #222;
-    color: #00ff44;
-}
+        /* Typography */
+        h1 { font-size: clamp(2rem, 8vw, 4.5rem); animation: glow 1s infinite alternate; margin: 0; text-align: center; }
+        h2 { font-size: 1.8rem; border-left: 5px solid var(--primary); padding-left: 20px; color: #fff; text-transform: uppercase; margin-bottom: 30px; align-self: flex-start; max-width: 1000px; margin-left: auto; margin-right: auto; width: 100%; }
+        h3 { color: var(--primary); text-transform: uppercase; margin-top: 0; font-size: 1.2rem; letter-spacing: 2px; }
+        p { line-height: 1.6; font-size: 1.05rem; color: var(--text-dim); max-width: 800px; text-align: left; }
 
-/* Creator Dossier */
-.creator-details {
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-}
+        /* UI Components */
+        .btn {
+            background: rgba(0, 255, 204, 0.05);
+            color: var(--primary);
+            padding: 12px 25px;
+            border: 1px solid var(--primary);
+            cursor: pointer;
+            margin: 10px 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary); }
 
-.use-case {
-    background: rgba(255, 204, 0, 0.05);
-    border-left: 4px solid #ffcc00;
-    padding: 15px;
-    margin-top: 20px;
-    color: #ffcc00;
-    font-size: 0.9rem;
-    text-align: left;
-}
+        .card {
+            background: var(--card-bg);
+            padding: 35px;
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 4px;
+            max-width: 800px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+        .card:hover { border-color: var(--primary); box-shadow: 0 0 25px rgba(0, 255, 204, 0.1); }
 
-/* Professional Designation Box Style (Matching image_04165d.png) */
-.designation-box {
-    border: 1px solid #ffcc00;
-    background-color: rgba(255, 204, 0, 0.05);
-    color: #ffcc00;
-    padding: 15px 40px;
-    display: inline-block;
-    font-weight: bold;
-    font-size: 1.4rem;
-    letter-spacing: 6px;
-    margin: 25px 0;
-    text-transform: uppercase;
-    font-family: 'Courier New', monospace;
-}
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: #000;
+            color: var(--primary);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            font-family: 'Courier New', monospace;
+            box-sizing: border-box;
+        }
 
-/* Footer Styling like the provided screenshot */
-footer {
-    padding: 40px 20px;
-    text-align: center;
-    background: transparent;
-    color: #555;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    border-top: 1px solid rgba(0, 255, 204, 0.05);
-}
+        .output {
+            background: #000;
+            padding: 15px;
+            margin-top: 15px;
+            height: 140px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            border: 1px solid #111;
+            color: #00ff44;
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
 
-@media (max-width: 768px) {
-    h1 { font-size: 2.5rem; }
-    footer { letter-spacing: 1px; font-size: 0.65rem; }
-    .designation-box { font-size: 1rem; letter-spacing: 2px; padding: 10px 15px; }
-}
-</style>
+        .use-case {
+            background: rgba(255, 204, 0, 0.05);
+            border-left: 4px solid var(--accent-gold);
+            padding: 15px;
+            margin-top: 20px;
+            color: var(--accent-gold);
+            font-size: 0.85rem;
+        }
+
+        /* Professional Designation Box */
+        .designation-box {
+            border: 1px solid var(--accent-gold);
+            background-color: rgba(255, 204, 0, 0.05);
+            color: var(--accent-gold);
+            padding: 12px 20px;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            margin: 20px 0;
+            text-transform: uppercase;
+            text-align: center;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        footer {
+            padding: 30px 20px;
+            text-align: center;
+            background: #000;
+            color: #444;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-top: 1px solid rgba(0, 255, 204, 0.05);
+        }
+
+        /* Local Grid for Section 02 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            header nav a { padding: 10px 8px; font-size: 0.6rem; letter-spacing: 0px; }
+            section { padding-top: 60px; }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.3rem; margin-bottom: 20px; }
+            .card { padding: 20px; }
+            .tools-grid { grid-template-columns: 1fr; }
+            .designation-box { font-size: 0.85rem; letter-spacing: 1px; padding: 10px; }
+            p { font-size: 0.95rem; }
+        }
+    </style>
 </head>
 
 <body>
-<div class="scanline"></div>
+
+<header>
+    <nav>
+        <a href="#cover">Home</a>
+        <a href="#about">About</a>
+        <a href="#tools">Local</a>
+        <a href="#osint-framework">OSINT</a>
+        <a href="#epieos">Epieos</a>
+        <a href="#dcode">DCode</a>
+        <a href="#crackstation">Crack</a>
+        <a href="#exif">EXIF</a>
+        <a href="#creator">Architect</a>
+    </nav>
+</header>
 
 <!-- 1 COVER -->
 <section id="cover">
+    <div class="scanline"></div>
     <h1>FORENSIC ANALYZER</h1>
-    <h3 style="letter-spacing: 5px; color: #555; text-align: center; margin-top: 10px;">VERSION 2.5 [STABLE]</h3>
+    <h3 style="letter-spacing: 5px; color: #444; text-align: center; margin-top: 10px;">VERSION 2.6 [STABLE]</h3>
     <p style="margin: 20px auto; text-align: center;">Advanced Cryptographic and Forensic Tactical Suite</p>
     <div style="text-align: center;">
         <a href="#about"><button class="btn">Initialize System</button></a>
@@ -174,156 +243,168 @@ footer {
 <!-- 2 ABOUT -->
 <section id="about">
     <h2>[01] System Overview</h2>
-    <p>This workstation is a specialized forensic analyzer designed for cybersecurity students and practitioners. It bridges the gap between theoretical cryptography and practical digital investigation. Through these modules, users can perform data recovery, decryption, and integrity verification—core pillars of ethical hacking and digital forensics.</p>
+    <div class="card">
+        <p>This workstation is a specialized forensic analyzer designed for cybersecurity students and practitioners. It bridges the gap between theoretical cryptography and practical digital investigation. Through these modules, users can perform data recovery, decryption, and integrity verification—core pillars of ethical hacking and digital forensics.</p>
+        <p style="margin-top: 20px; color: var(--primary); font-weight: bold;">[MODULES ACTIVE: 12] [SECURITY: HIGH]</p>
+    </div>
 </section>
 
 <!-- 3 LOCAL TOOLS -->
 <section id="tools">
-    <h2>[02] Custom Tactical Modules</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px;">
-        <!-- Caesar Cipher -->
+    <h2>[02] Tactical Forensic Modules</h2>
+    <div class="tools-grid">
+        <!-- Caesar -->
         <div class="card">
             <h3>Module: Caesar Cipher</h3>
-            <input id="text" placeholder="ENTER TEXT TO PROCESS">
+            <input id="text" placeholder="PLAINTEXT / CIPHERTEXT">
             <input id="shift" type="number" placeholder="ROTATION KEY (0-95)">
-            <button class="btn" onclick="encrypt()">Encrypt</button>
-            <button class="btn" onclick="decrypt()">Decrypt</button>
-            <button class="btn" onclick="autoDecrypt()">Auto-Crack</button>
-            <div class="output" id="result"></div>
+            <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                <button class="btn" style="flex:1" onclick="encrypt()">Encrypt</button>
+                <button class="btn" style="flex:1" onclick="decrypt()">Decrypt</button>
+                <button class="btn" style="flex:100%" onclick="autoDecrypt()">Auto-Crack Pattern</button>
+            </div>
+            <div class="output" id="result">Waiting for command...</div>
         </div>
 
         <!-- SHA256 -->
         <div class="card">
             <h3>Module: SHA-256 Hasher</h3>
-            <input id="pass" placeholder="ENTER STRING FOR HASHING">
-            <button class="btn" onclick="hashPass()">Compute Hash</button>
+            <input id="pass" placeholder="STRING FOR HASHING">
+            <button class="btn" onclick="hashPass()">Compute Checksum</button>
             <div class="output" id="hash"></div>
         </div>
 
-        <!-- Password Generator -->
+        <!-- Generator -->
         <div class="card">
-            <h3>Module: Entropy Generator</h3>
-            <input id="length" type="number" placeholder="PASSWORD LENGTH">
-            <button class="btn" onclick="generatePassword()">Generate</button>
+            <h3>Module: Entropy Gen</h3>
+            <input id="length" type="number" placeholder="KEY LENGTH (DEFAULT 16)">
+            <button class="btn" onclick="generatePassword()">Generate Secure Key</button>
             <div class="output" id="pwd"></div>
         </div>
 
-        <!-- Brute Force -->
+        <!-- Brute -->
         <div class="card">
-            <h3>Module: Brute Force Scanner</h3>
-            <input id="cipher" placeholder="ENTER CIPHERTEXT">
-            <button class="btn" onclick="bruteforce()">Start Attack</button>
+            <h3>Module: Brute Force</h3>
+            <input id="cipher" placeholder="ENTER TARGET CIPHERTEXT">
+            <button class="btn" onclick="bruteforce()">Start Attack Sequence</button>
             <div class="output" id="bf"></div>
         </div>
     </div>
 </section>
 
-<!-- ONLINE TOOLS SLIDES -->
-<section id="tool-dcode">
-    <h2>[03] External: DCode</h2>
+<!-- 4 OSINT SLIDE -->
+<section id="osint-framework">
+    <h2>[03] Intelligence: OSINT Framework</h2>
     <div class="card">
-        <h3>Primary Tool: DCode.fr</h3>
-        <p>A comprehensive toolkit for obscure ciphers and symbol-based encryption (Zodiac, Pigpen, etc).</p>
+        <h3>Primary Tool: OSINTFramework.com</h3>
+        <p>A structured tree-style directory for open-source intelligence. It helps investigators find specific tools for social media, public records, and dark web analysis.</p>
         <div class="use-case">
-            <strong>WHEN TO USE:</strong> Encounter symbols or non-alphanumeric characters that don't fit standard English ciphers.
+            <strong>WHEN TO USE:</strong> At the start of an investigation to identify the right platform for gathering specific intelligence.
         </div>
-        <a href="https://www.dcode.fr/symbols-ciphers" target="_blank"><button class="btn">Launch Tool</button></a>
+        <a href="https://osintframework.com/" target="_blank"><button class="btn">Launch Framework</button></a>
     </div>
 </section>
 
-<section id="tool-multidecoder">
-    <h2>[04] External: MultiDecoder</h2>
+<!-- 5 EPIEOS SLIDE -->
+<section id="epieos">
+    <h2>[04] Intelligence: Epieos Search</h2>
     <div class="card">
-        <h3>Primary Tool: CacheSleuth MultiDecoder</h3>
-        <p>An all-in-one decoding station for Base64, Hex, Binary, and ROT variations.</p>
+        <h3>Primary Tool: Epieos Intelligence</h3>
+        <p>A specialized reverse-email and reverse-phone search tool. It can identify hidden accounts on Google, Skype, and other platforms without notifying the target.</p>
         <div class="use-case">
-            <strong>WHEN TO USE:</strong> Use this when you have a string of data but you are unsure what encoding it uses. It will attempt multiple decodings at once.
+            <strong>WHEN TO USE:</strong> When you have a single email address and need to verify the owner's identity or linked profiles.
         </div>
-        <a href="https://www.cachesleuth.com/multidecoder/" target="_blank"><button class="btn">Launch Tool</button></a>
+        <a href="https://epieos.com/?r=1" target="_blank"><button class="btn">Search Target</button></a>
     </div>
 </section>
 
-<section id="tool-crackstation">
-    <h2>[05] External: CrackStation</h2>
+<!-- 6 DCODE SLIDE -->
+<section id="dcode">
+    <h2>[05] Cryptography: Hash Identifier</h2>
     <div class="card">
-        <h3>Primary Tool: CrackStation Hash Cracker</h3>
-        <p>Uses massive lookup tables (rainbow tables) to reverse-engineer password hashes.</p>
+        <h3>Primary Tool: DCode Hash Analysis</h3>
+        <p>A robust tool for identifying unknown cryptographic hashes and symbol-based ciphers. It uses frequency analysis to guess the algorithm used.</p>
         <div class="use-case">
-            <strong>WHEN TO USE:</strong> Use this when you have recovered a SHA1, MD5, or SHA256 hash and need to find the original plaintext password.
+            <strong>WHEN TO USE:</strong> When you find a long string of random hex characters and need to know if it's MD5, SHA1, or Bcrypt.
         </div>
-        <a href="https://crackstation.net/" target="_blank"><button class="btn">Launch Tool</button></a>
+        <a href="https://www.dcode.fr/hash-function" target="_blank"><button class="btn">Analyze Hash</button></a>
     </div>
 </section>
 
-<section id="tool-exif">
-    <h2>[06] External: Online EXIF Viewer</h2>
+<!-- 7 CRACKSTATION SLIDE -->
+<section id="crackstation">
+    <h2>[06] Recovery: CrackStation</h2>
     <div class="card">
-        <h3>Primary Tool: EXIF Inspector</h3>
-        <p>Extracts metadata from image files, including GPS coordinates and camera serial numbers.</p>
+        <h3>Primary Tool: CrackStation Recovery</h3>
+        <p>A massive lookup engine that uses rainbow tables to reverse-engineer password hashes into plaintext instantly.</p>
         <div class="use-case">
-            <strong>WHEN TO USE:</strong> Use this during "Geoint" (Geospatial Intelligence) investigations to find where and when a photo was taken.
+            <strong>WHEN TO USE:</strong> After extracting password hashes from a database dump during a forensic audit.
         </div>
-        <a href="https://onlineexifviewer.com/" target="_blank"><button class="btn">Launch Tool</button></a>
+        <a href="https://crackstation.net/" target="_blank"><button class="btn">Reverse Hash</button></a>
     </div>
 </section>
 
-<section id="tool-ezgif">
-    <h2>[07] External: EZGIF Metadata</h2>
+<!-- 8 EXIF SLIDE -->
+<section id="exif">
+    <h2>[07] Geoint: EXIF Viewer</h2>
     <div class="card">
-        <h3>Primary Tool: EZGIF View-Metadata</h3>
-        <p>A lightweight tool to strip or view metadata from various file formats including GIFs and PNGs.</p>
+        <h3>Primary Tool: EXIF Metadata Inspector</h3>
+        <p>Extracts GPS coordinates, device models, and timestamp data hidden within image files (JPEG, TIFF).</p>
         <div class="use-case">
-            <strong>WHEN TO USE:</strong> Use this for quick inspection of web-based images to see if data was hidden or if the file was recently edited.
+            <strong>WHEN TO USE:</strong> During Geospatial Intelligence gathering to prove where and when a photo was taken.
         </div>
-        <a href="https://ezgif.com/view-metadata" target="_blank"><button class="btn">Launch Tool</button></a>
+        <a href="https://onlineexifviewer.com/" target="_blank"><button class="btn">Scan Metadata</button></a>
     </div>
 </section>
 
-<section id="tool-metadata2go">
-    <h2>[08] External: Metadata2Go</h2>
+<!-- 9 METADATA SLIDE -->
+<section id="metadata">
+    <h2>[08] Analysis: Metadata2Go</h2>
     <div class="card">
-        <h3>Primary Tool: Metadata2Go All-File Inspector</h3>
-        <p>Supports a huge range of file types, including DOCX, PDF, and Video files, to reveal hidden ownership data.</p>
+        <h3>Primary Tool: All-File Inspector</h3>
+        <p>Supports non-image files like PDF, DOCX, and MP4 to reveal author names, software used, and hidden revision history.</p>
         <div class="use-case">
-            <strong>WHEN TO USE:</strong> Use this for non-image files. It is the best tool for finding the "Author" or "Creation Date" of a document or video.
+            <strong>WHEN TO USE:</strong> To find the original author of a document or the software used to edit a video file.
         </div>
-        <a href="https://www.metadata2go.com/" target="_blank"><button class="btn">Launch Tool</button></a>
+        <a href="https://www.metadata2go.com/" target="_blank"><button class="btn">Deep Audit</button></a>
     </div>
 </section>
 
-<!-- 09 CREATOR DETAILS -->
+<!-- 10 CREATOR DETAILS -->
 <section id="creator">
     <h2>[09] System Architect</h2>
-    <div class="creator-details">
-        <div class="card" style="text-align: center; padding: 60px;">
-            <h3 style="font-size: 3rem; margin-bottom: 5px;">Sayani Maity</h3>
-            <p style="color: #00ffcc; font-size: 1.1rem; margin-bottom: 20px; opacity: 0.8;">B.Sc.Digital Forensic Student</p>
-            
-            <div class="designation-box">
-                CERTIFIED ETHICAL HACKER (CEH) V13 AI
-            </div>
-
-            <p style="margin: 20px auto 15px; font-size: 1.1rem; color: #aaddcc;"><strong>Specialization:</strong> OSINT (Open Source Intelligence), Digital Forensics, Cryptographic Analysis, and Threat Intelligence.</p>
-            
-            <p style="margin: 30px auto 0; font-style: italic; color: #666; font-size: 1rem;">"Mastering the intersection of traditional forensics and Artificial Intelligence to secure the digital frontier."</p>
+    <div class="card" style="text-align: center; border-color: var(--accent-gold);">
+        <h3 style="font-size: 2.2rem; margin-bottom: 5px; color: #fff;">Sayani Maity</h3>
+        <p style="color: var(--primary); font-size: 1rem; margin-bottom: 20px;">B.Sc. Digital Forensic Student</p>
+        
+        <div class="designation-box">
+            CERTIFIED ETHICAL HACKER (CEH) V13 AI
         </div>
+
+        <p style="margin: 20px auto; text-align: center; font-style: italic; color: #fff; border-top: 1px solid rgba(255,204,0,0.2); padding-top: 20px;">
+            "Mastering the intersection of traditional forensics and Artificial Intelligence to secure the digital frontier."
+        </p>
+
+        <p style="margin: 30px auto 0; font-size: 0.9rem; color: var(--text-dim); opacity: 0.8;">
+            <strong>Specialization:</strong> OSINT Analysis, Digital Forensics, Cryptography, and Threat Intelligence gathering.
+        </p>
     </div>
 </section>
 
-<!-- 10 FINAL -->
+<!-- 11 FINAL -->
 <section id="disclaimer">
     <h2>[10] Legal Disclaimer</h2>
     <div class="card" style="border-color: #ff3300;">
-        <p style="color: #ff3300; font-weight: bold; margin-bottom: 10px;">USAGE NOTICE:</p>
-        <p style="margin-bottom: 20px;">This workstation is strictly for educational, ethical hacking, and authorized digital forensic purposes. Unauthorized use of these tools against systems or data without explicit permission is illegal and unethical.</p>
+        <p style="color: #ff3300; font-weight: bold; margin-bottom: 10px;">OPERATIONAL SECURITY WARNING:</p>
+        <p style="margin-bottom: 20px; font-size: 0.95rem;">This terminal is provided for strictly ethical, educational, and authorized digital forensic purposes. Unauthorized access to data or systems is a criminal offense under global cyber-laws. Practice responsibly.</p>
     </div>
     <div style="text-align: center; margin-top: 50px;">
-        <button class="btn" onclick="window.scrollTo(0,0)">Return to Top</button>
+        <button class="btn" onclick="window.scrollTo(0,0)">Terminate Session / Return Top</button>
     </div>
 </section>
 
 <footer>
-    Authorized for educational purposes only. | © 2026 Forensic Analyzer
+    Authorized for educational purposes only. | [SYSTEM: SECURE] | © 2026 Forensic Analyzer
 </footer>
 
 <script>
@@ -354,6 +435,7 @@ function decrypt(){
 
 function autoDecrypt(){
     let text=document.getElementById("text").value;
+    if(!text) { document.getElementById("result").innerText = "[SYSTEM ERROR: INPUT NULL]"; return; }
     let best="", max=0, bestKey=0;
     for(let k=0;k<chars.length;k++){
         let res="";
@@ -368,11 +450,11 @@ function autoDecrypt(){
             bestKey=k;
         }
     }
-    document.getElementById("result").innerText="[PROBABLE KEY FOUND: "+bestKey+"]\n\n"+best;
+    document.getElementById("result").innerText="[SUCCESS: PROBABLE KEY "+bestKey+"]\n\n"+(best || "No readable strings found.");
 }
 
 function generatePassword(){
-    let len=document.getElementById("length").value || 12;
+    let len=document.getElementById("length").value || 16;
     let pwd="";
     for(let i=0;i<len;i++){
         pwd+=chars[Math.floor(Math.random()*chars.length)];
@@ -382,15 +464,17 @@ function generatePassword(){
 
 function bruteforce(){
     let text=document.getElementById("cipher").value;
-    let out="--- ATTACK SEQUENCE INITIATED ---\n";
-    for(let k=0;k<chars.length;k++){
+    if(!text) { document.getElementById("bf").innerText = "WAITING FOR CIPHERTEXT..."; return; }
+    let out="--- ATTACK INITIATED ---\n";
+    for(let k=0;k<Math.min(chars.length, 25);k++){
         let res="";
         for(let c of text){
             let i=chars.indexOf(c);
             res += i!=-1 ? chars[(i-k+chars.length)%chars.length] : c;
         }
-        out+="K-"+k+": "+res+"\n";
+        out+="ROT-"+k+": "+res+"\n";
     }
+    out += "... [ANALYSIS ONGOING] ...";
     document.getElementById("bf").innerText=out;
 }
 
@@ -400,7 +484,7 @@ async function hashPass(){
     const data=new TextEncoder().encode(text);
     const hash=await crypto.subtle.digest("SHA-256",data);
     const hex=Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
-    document.getElementById("hash").innerText="HASH: "+hex+"\n\n[STATUS: COMPUTED]";
+    document.getElementById("hash").innerText="HASH (SHA-256): "+hex+"\n\n[STATUS: COMPUTED]";
 }
 </script>
 
