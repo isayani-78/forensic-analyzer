@@ -1,384 +1,386 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
- 
-<head> 
+<head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-
-<title>Forensic Analyzer</title>
+<title>Forensic Analyzer | Tactical Console</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-
-body{
-margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:#0d1117;
-color:#e6edf3;
+/* Cyber-Ops Grid Background & Theme */
+body {
+    margin:0;
+    font-family: 'Courier New', monospace;
+    background-color: #0a0f18;
+    color: #00ffcc;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    /* Grid Pattern - Ager code theke neoa */
+    background-image: 
+        linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
 }
 
-header{
-background:#161b22;
-padding:15px 40px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:1px solid #30363d;
+/* Slide/Section Layout */
+section {
+    min-height: 100vh;
+    padding: 80px 40px;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(0, 255, 204, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-header h1{
-color:#58a6ff;
-font-size:22px;
+/* Animations */
+@keyframes glow {
+    from { text-shadow: 0 0 10px #00ffcc; }
+    to { text-shadow: 0 0 30px #00ffcc; }
 }
 
-nav a{
-color:#e6edf3;
-text-decoration:none;
-margin-left:20px;
+/* Scanned Animation Function (Scanline) */
+@keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
 }
 
-.hero{
-text-align:center;
-padding:60px 20px;
+.scanline {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 2px;
+    background: rgba(0, 255, 204, 0.2);
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+    z-index: 1000;
+    pointer-events: none;
+    animation: scanline 4s linear infinite;
 }
 
-.hero h2{
-color:#58a6ff;
-font-size:40px;
+/* Typography */
+h1 { font-size: 4rem; animation: glow 1s infinite alternate; margin: 0; text-align: center; }
+h2 { font-size: 2.5rem; border-left: 5px solid #00ffcc; padding-left: 20px; color: #fff; text-transform: uppercase; margin-bottom: 30px; }
+h3 { color: #00ffcc; text-transform: uppercase; margin-top: 0; }
+p { line-height: 1.6; font-size: 1.1rem; color: #aaddcc; max-width: 800px; }
+
+/* Buttons and UI */
+.btn {
+    background: rgba(0, 255, 204, 0.1);
+    color: #00ffcc;
+    padding: 12px 25px;
+    border: 1px solid #00ffcc;
+    cursor: pointer;
+    margin: 10px 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Courier New', monospace;
+    transition: 0.3s;
+}
+.btn:hover { background: #00ffcc; color: #000; box-shadow: 0 0 20px #00ffcc; }
+
+.card {
+    background: rgba(15, 23, 42, 0.9);
+    padding: 30px;
+    margin: 20px 0;
+    border: 1px solid rgba(0, 255, 204, 0.2);
+    border-radius: 5px;
+    transition: 0.3s;
+}
+.card:hover { border-color: #00ffcc; box-shadow: 0 0 15px rgba(0, 255, 204, 0.1); }
+
+input, textarea {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin: 10px 0;
+    background: #050505;
+    color: #00ffcc;
+    border: 1px solid rgba(0, 255, 204, 0.3);
+    font-family: 'Courier New', monospace;
 }
 
-.hero p{
-max-width:700px;
-margin:auto;
+.output {
+    background: #000;
+    padding: 15px;
+    margin-top: 10px;
+    height: 150px;
+    overflow: auto;
+    white-space: pre-wrap;
+    border: 1px solid #222;
+    color: #00ff44;
 }
 
-.tools{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
-padding:40px;
+/* Creator Dossier (No Pic placeholder) */
+.creator-details {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
 }
 
-.card{
-background:#161b22;
-border:1px solid #30363d;
-padding:20px;
-border-radius:10px;
-text-align:center;
+.badge {
+    border: 2px solid #00ffcc;
+    padding: 10px 20px;
+    display: inline-block;
+    margin-top: 15px;
+    font-weight: bold;
+    background: rgba(0, 255, 204, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-.card:hover{
-border-color:#58a6ff;
-transform:translateY(-5px);
+.use-case {
+    background: rgba(255, 204, 0, 0.05);
+    border-left: 4px solid #ffcc00;
+    padding: 15px;
+    margin-top: 20px;
+    color: #ffcc00;
+    font-size: 0.9rem;
+    text-align: left;
 }
 
-.card button{
-margin-top:10px;
-padding:10px;
-width:100%;
-background:#238636;
-border:none;
-color:white;
-border-radius:6px;
-cursor:pointer;
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
 }
-
-#toolArea{
-max-width:700px;
-margin:auto;
-padding:40px;
-}
-
-input,select,textarea{
-width:100%;
-padding:10px;
-margin-top:10px;
-background:#0d1117;
-border:1px solid #30363d;
-color:#e6edf3;
-border-radius:6px;
-}
-
-.run{
-background:#238636;
-border:none;
-padding:10px;
-margin-top:10px;
-color:white;
-width:100%;
-cursor:pointer;
-border-radius:6px;
-}
-
-pre{
-background:#010409;
-padding:15px;
-margin-top:15px;
-border-radius:6px;
-overflow:auto;
-}
-
-footer{
-text-align:center;
-padding:20px;
-border-top:1px solid #30363d;
-margin-top:40px;
-}
-
 </style>
-
 </head>
 
 <body>
+<div class="scanline"></div>
 
-<header>
-<h1>Forensic Analyzer</h1>
-
-<nav>
-<a href="#">Home</a>
-<a href="#tools">Tools</a>
-</nav>
-</header>
-
-<section class="hero">
-<h2>Browser-Based Forensic Toolkit</h2>
-<p>
-A simple digital forensic tool platform for cryptography utilities,
-hash analysis, and cybersecurity experiments.
-</p>
+<!-- 1 COVER -->
+<section id="cover">
+    <h1>FORENSIC ANALYZER</h1>
+    <h3 style="letter-spacing: 5px; color: #555; text-align: center; margin-top: 10px;">VERSION 2.5 [STABLE]</h3>
+    <p style="margin: 20px auto; text-align: center;">Advanced Cryptographic and Forensic Tactical Suite</p>
+    <div style="text-align: center;">
+        <a href="#about"><button class="btn">Initialize System</button></a>
+    </div>
 </section>
 
-<section class="tools" id="tools">
-
-<div class="card">
-<h3>Hash Generator</h3>
-<p>Generate MD5, SHA1, and SHA256 hashes.</p>
-<button onclick="openTool('hash')">Open</button>
-</div>
-
-<div class="card">
-<h3>Base64 Encode / Decode</h3>
-<p>Encode or decode Base64 text.</p>
-<button onclick="openTool('base64')">Open</button>
-</div>
-
-<div class="card">
-<h3>Caesar Cipher</h3>
-<p>Encrypt, decrypt, or auto-decrypt text.</p>
-<button onclick="openTool('caesar')">Open</button>
-</div>
-
-<div class="card">
-<h3>Password Generator</h3> 
-<p>Generate strong random passwords.</p>
-<button onclick="openTool('password')">Open</button>
-</div>
-
+<!-- 2 ABOUT -->
+<section id="about">
+    <h2>[01] System Overview</h2>
+    <p>This workstation is a specialized forensic analyzer designed for cybersecurity students and practitioners. It bridges the gap between theoretical cryptography and practical digital investigation. Through these modules, users can perform data recovery, decryption, and integrity verification—core pillars of ethical hacking and digital forensics.</p>
 </section>
 
-<div id="toolArea"></div>
+<!-- 3 LOCAL TOOLS -->
+<section id="tools">
+    <h2>[02] Custom Tactical Modules</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px;">
+        <!-- Caesar Cipher -->
+        <div class="card">
+            <h3>Module: Caesar Cipher</h3>
+            <input id="text" placeholder="ENTER TEXT TO PROCESS">
+            <input id="shift" type="number" placeholder="ROTATION KEY (0-95)">
+            <button class="btn" onclick="encrypt()">Encrypt</button>
+            <button class="btn" onclick="decrypt()">Decrypt</button>
+            <button class="btn" onclick="autoDecrypt()">Auto-Crack</button>
+            <div class="output" id="result"></div>
+        </div>
 
-<footer>
-© Forensic Analyzer | Cybersecurity Toolkit
-</footer>
+        <!-- SHA256 -->
+        <div class="card">
+            <h3>Module: SHA-256 Hasher</h3>
+            <input id="pass" placeholder="ENTER STRING FOR HASHING">
+            <button class="btn" onclick="hashPass()">Compute Hash</button>
+            <div class="output" id="hash"></div>
+        </div>
+
+        <!-- Password Generator -->
+        <div class="card">
+            <h3>Module: Entropy Generator</h3>
+            <input id="length" type="number" placeholder="PASSWORD LENGTH">
+            <button class="btn" onclick="generatePassword()">Generate</button>
+            <div class="output" id="pwd"></div>
+        </div>
+
+        <!-- Brute Force -->
+        <div class="card">
+            <h3>Module: Brute Force Scanner</h3>
+            <input id="cipher" placeholder="ENTER CIPHERTEXT">
+            <button class="btn" onclick="bruteforce()">Start Attack</button>
+            <div class="output" id="bf"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ONLINE TOOLS SLIDES -->
+<section id="tool-dcode">
+    <h2>[03] External: DCode</h2>
+    <div class="card">
+        <h3>Primary Tool: DCode.fr</h3>
+        <p>A comprehensive toolkit for obscure ciphers and symbol-based encryption (Zodiac, Pigpen, etc).</p>
+        <div class="use-case">
+            <strong>WHEN TO USE:</strong> Encounter symbols or non-alphanumeric characters that don't fit standard English ciphers.
+        </div>
+        <a href="https://www.dcode.fr/symbols-ciphers" target="_blank"><button class="btn">Launch Tool</button></a>
+    </div>
+</section>
+
+<section id="tool-multidecoder">
+    <h2>[04] External: MultiDecoder</h2>
+    <div class="card">
+        <h3>Primary Tool: CacheSleuth MultiDecoder</h3>
+        <p>An all-in-one decoding station for Base64, Hex, Binary, and ROT variations.</p>
+        <div class="use-case">
+            <strong>WHEN TO USE:</strong> Use this when you have a string of data but you are unsure what encoding it uses. It will attempt multiple decodings at once.
+        </div>
+        <a href="https://www.cachesleuth.com/multidecoder/" target="_blank"><button class="btn">Launch Tool</button></a>
+    </div>
+</section>
+
+<section id="tool-crackstation">
+    <h2>[05] External: CrackStation</h2>
+    <div class="card">
+        <h3>Primary Tool: CrackStation Hash Cracker</h3>
+        <p>Uses massive lookup tables (rainbow tables) to reverse-engineer password hashes.</p>
+        <div class="use-case">
+            <strong>WHEN TO USE:</strong> Use this when you have recovered a SHA1, MD5, or SHA256 hash and need to find the original plaintext password.
+        </div>
+        <a href="https://crackstation.net/" target="_blank"><button class="btn">Launch Tool</button></a>
+    </div>
+</section>
+
+<section id="tool-exif">
+    <h2>[06] External: Online EXIF Viewer</h2>
+    <div class="card">
+        <h3>Primary Tool: EXIF Inspector</h3>
+        <p>Extracts metadata from image files, including GPS coordinates and camera serial numbers.</p>
+        <div class="use-case">
+            <strong>WHEN TO USE:</strong> Use this during "Geoint" (Geospatial Intelligence) investigations to find where and when a photo was taken.
+        </div>
+        <a href="https://onlineexifviewer.com/" target="_blank"><button class="btn">Launch Tool</button></a>
+    </div>
+</section>
+
+<section id="tool-ezgif">
+    <h2>[07] External: EZGIF Metadata</h2>
+    <div class="card">
+        <h3>Primary Tool: EZGIF View-Metadata</h3>
+        <p>A lightweight tool to strip or view metadata from various file formats including GIFs and PNGs.</p>
+        <div class="use-case">
+            <strong>WHEN TO USE:</strong> Use this for quick inspection of web-based images to see if data was hidden or if the file was recently edited.
+        </div>
+        <a href="https://ezgif.com/view-metadata" target="_blank"><button class="btn">Launch Tool</button></a>
+    </div>
+</section>
+
+<section id="tool-metadata2go">
+    <h2>[08] External: Metadata2Go</h2>
+    <div class="card">
+        <h3>Primary Tool: Metadata2Go All-File Inspector</h3>
+        <p>Supports a huge range of file types, including DOCX, PDF, and Video files, to reveal hidden ownership data.</p>
+        <div class="use-case">
+            <strong>WHEN TO USE:</strong> Use this for non-image files. It is the best tool for finding the "Author" or "Creation Date" of a document or video.
+        </div>
+        <a href="https://www.metadata2go.com/" target="_blank"><button class="btn">Launch Tool</button></a>
+    </div>
+</section>
+
+<!-- 11 CREATOR DETAILS (Photo space removed as requested) -->
+<section id="creator">
+    <h2>[09] System Architect</h2>
+    <div class="creator-details">
+        <div class="card" style="text-align: center; padding: 60px;">
+            <h3 style="font-size: 3rem; margin-bottom: 20px;">Sayani Maity</h3>
+            <p style="margin: 0 auto 15px; font-size: 1.3rem; color: #fff;"><strong>Professional Designation:</strong> Certified Ethical Hacker</p>
+            <p style="margin: 0 auto 15px; font-size: 1.1rem; color: #aaddcc;"><strong>Specialization:</strong> Digital Forensics, Cryptographic Analysis, and Threat Intelligence.</p>
+            
+            <div class="badge" style="background: rgba(255, 204, 0, 0.2); color: #ffcc00; border-color: #ffcc00; margin: 30px 0; font-size: 1.2rem;">
+                (CEH) v13 AI Certified
+            </div>
+            
+            <p style="margin: 30px auto 0; font-style: italic; color: #666; font-size: 1rem;">"Mastering the intersection of traditional forensics and Artificial Intelligence to secure the digital frontier."</p>
+        </div>
+    </div>
+</section>
+
+<!-- 12 FINAL -->
+<section id="disclaimer">
+    <h2>[10] Legal Disclaimer</h2>
+    <div class="card" style="border-color: #ff3300;">
+        <p style="color: #ff3300; font-weight: bold;">USAGE NOTICE:</p>
+        <p>This workstation is strictly for educational, ethical hacking, and authorized digital forensic purposes. Unauthorized use of these tools against systems or data without explicit permission is illegal and unethical.</p>
+        <p><strong>Educational Use Only. © 2024 Forensic Analyzer Suite.</strong></p>
+    </div>
+    <div style="text-align: center; margin-top: 50px;">
+        <button class="btn" onclick="window.scrollTo(0,0)">Return to Top</button>
+    </div>
+</section>
 
 <script>
+const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+{}[]|:;<>,.?/~` ";
+const commonWords = ["the","and","you","that","for","with","this","have","not","are","from","your","just","like","they","what","when","there","can","about","hello","world","test"];
 
-function openTool(tool){
-
-let html="";
-
-if(tool==="hash"){
-
-html=`
-<h2>Hash Generator</h2>
-
-<textarea id="hashInput" placeholder="Enter text"></textarea>
-
-<select id="hashType">
-<option value="SHA-256">SHA256</option>
-<option value="SHA-1">SHA1</option>
-<option value="MD5">MD5</option>
-</select>
-
-<button class="run" onclick="generateHash()">Generate Hash</button>
-
-<pre id="output"></pre>
-`;
-
+function encrypt(){
+    let text=document.getElementById("text").value;
+    let shift=parseInt(document.getElementById("shift").value) || 0;
+    let result="";
+    for(let c of text){
+        let i=chars.indexOf(c);
+        result += i!=-1 ? chars[(i+shift)%chars.length] : c;
+    }
+    document.getElementById("result").innerText=result;
 }
 
-if(tool==="base64"){
-
-html=`
-<h2>Base64 Encode / Decode</h2>
-
-<textarea id="baseText" placeholder="Enter text"></textarea>
-
-<select id="baseMode">
-<option value="encode">Encode</option>
-<option value="decode">Decode</option>
-</select>
-
-<button class="run" onclick="runBase64()">Run</button>
-
-<pre id="output"></pre>
-`;
-
+function decrypt(){
+    let text=document.getElementById("text").value;
+    let shift=parseInt(document.getElementById("shift").value) || 0;
+    let result="";
+    for(let c of text){
+        let i=chars.indexOf(c);
+        result += i!=-1 ? chars[(i-shift+chars.length)%chars.length] : c;
+    }
+    document.getElementById("result").innerText=result;
 }
 
-if(tool==="caesar"){
-
-html=`
-<h2>Caesar Cipher</h2>
-
-<textarea id="caesarText" placeholder="Enter text"></textarea>
-
-<input id="shift" placeholder="Shift number">
-
-<select id="mode">
-<option value="encrypt">Encrypt</option>
-<option value="decrypt">Decrypt</option>
-<option value="auto">Auto Decrypt</option>
-</select>
-
-<button class="run" onclick="runCaesar()">Run</button>
-
-<pre id="output"></pre>
-`;
-
+function autoDecrypt(){
+    let text=document.getElementById("text").value;
+    let best="", max=0, bestKey=0;
+    for(let k=0;k<chars.length;k++){
+        let res="";
+        for(let c of text){
+            let i=chars.indexOf(c);
+            res += i!=-1 ? chars[(i-k+chars.length)%chars.length] : c;
+        }
+        let matches = commonWords.filter(w=>res.toLowerCase().includes(w)).length;
+        if(matches>max){
+            max=matches;
+            best=res;
+            bestKey=k;
+        }
+    }
+    document.getElementById("result").innerText="[PROBABLE KEY FOUND: "+bestKey+"]\n\n"+best;
 }
-
-if(tool==="password"){
-
-html=`
-<h2>Password Generator</h2>
-
-<input id="length" placeholder="Password Length">
-
-<button class="run" onclick="generatePassword()">Generate</button>
-
-<pre id="output"></pre>
-`;
-
-}
-
-document.getElementById("toolArea").innerHTML=html;
-
-}
-
-
-/* HASH GENERATOR */
-
-async function generateHash(){
-
-let text=document.getElementById("hashInput").value;
-let type=document.getElementById("hashType").value;
-
-if(type==="MD5"){
-document.getElementById("output").textContent="MD5 requires backend support";
-return;
-}
-
-let buffer=new TextEncoder().encode(text);
-let hashBuffer=await crypto.subtle.digest(type,buffer);
-
-let hashArray=Array.from(new Uint8Array(hashBuffer));
-
-let hashHex=hashArray.map(b=>b.toString(16).padStart(2,"0")).join("");
-
-document.getElementById("output").textContent=hashHex;
-
-}
-
-
-/* BASE64 */
-
-function runBase64(){
-
-let text=document.getElementById("baseText").value;
-let mode=document.getElementById("baseMode").value;
-
-if(mode==="encode")
-document.getElementById("output").textContent=btoa(text);
-else
-document.getElementById("output").textContent=atob(text);
-
-}
-
-
-/* CAESAR */
-
-function runCaesar(){
-
-let text=document.getElementById("caesarText").value;
-let shift=parseInt(document.getElementById("shift").value)||0;
-let mode=document.getElementById("mode").value;
-
-function shiftChar(c,s){
-
-if(!/[a-z]/i.test(c)) return c;
-
-let base=c===c.toUpperCase()?65:97;
-return String.fromCharCode((c.charCodeAt(0)-base+s+26)%26+base);
-
-}
-
-if(mode==="auto"){
-
-let result="";
-
-for(let k=1;k<26;k++){
-
-let attempt="";
-
-for(let i=0;i<text.length;i++)
-attempt+=shiftChar(text[i],-k);
-
-result+="Shift "+k+": "+attempt+"\n";
-
-}
-
-document.getElementById("output").textContent=result;
-return;
-
-}
-
-let result="";
-
-for(let i=0;i<text.length;i++){
-
-if(mode==="encrypt")
-result+=shiftChar(text[i],shift);
-else
-result+=shiftChar(text[i],-shift);
-
-}
-
-document.getElementById("output").textContent=result;
-
-}
-
-
-/* PASSWORD */
 
 function generatePassword(){
-
-let len=parseInt(document.getElementById("length").value)||12;
-
-let chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
-
-let pass="";
-
-for(let i=0;i<len;i++)
-pass+=chars.charAt(Math.floor(Math.random()*chars.length));
-
-document.getElementById("output").textContent=pass;
-
+    let len=document.getElementById("length").value || 12;
+    let pwd="";
+    for(let i=0;i<len;i++){
+        pwd+=chars[Math.floor(Math.random()*chars.length)];
+    }
+    document.getElementById("pwd").innerText=pwd;
 }
 
+function bruteforce(){
+    let text=document.getElementById("cipher").value;
+    let out="--- ATTACK SEQUENCE INITIATED ---\n";
+    for(let k=0;k<chars.length;k++){
+        let res="";
+        for(let c of text){
+            let i=chars.indexOf(c);
+            res += i!=-1 ? chars[(i-k+chars.length)%chars.length] : c;
+        }
+        out+="K-"+k+": "+res+"\n";
+    }
+    document.getElementById("bf").innerText=out;
+}
+
+async function hashPass(){
+    let text=document.getElementById("pass").value;
+    if(!text) return;
+    const data=new TextEncoder().encode(text);
+    const hash=await crypto.subtle.digest("SHA-256",data);
+    const hex=Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
+    document.getElementById("hash").innerText="HASH: "+hex+"\n\n[STATUS: COMPUTED]";
+}
 </script>
 
 </body>
 </html>
-```
