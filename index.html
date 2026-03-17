@@ -113,17 +113,6 @@ input, textarea {
     text-align: center;
 }
 
-.badge {
-    border: 2px solid #00ffcc;
-    padding: 10px 20px;
-    display: inline-block;
-    margin-top: 15px;
-    font-weight: bold;
-    background: rgba(0, 255, 204, 0.1);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
 .use-case {
     background: rgba(255, 204, 0, 0.05);
     border-left: 4px solid #ffcc00;
@@ -132,6 +121,21 @@ input, textarea {
     color: #ffcc00;
     font-size: 0.9rem;
     text-align: left;
+}
+
+/* Professional Designation Box Style (Matching image_04165d.png) */
+.designation-box {
+    border: 1px solid #ffcc00;
+    background-color: rgba(255, 204, 0, 0.05);
+    color: #ffcc00;
+    padding: 15px 40px;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.4rem;
+    letter-spacing: 6px;
+    margin: 25px 0;
+    text-transform: uppercase;
+    font-family: 'Courier New', monospace;
 }
 
 /* Footer Styling like the provided screenshot */
@@ -149,6 +153,7 @@ footer {
 @media (max-width: 768px) {
     h1 { font-size: 2.5rem; }
     footer { letter-spacing: 1px; font-size: 0.65rem; }
+    .designation-box { font-size: 1rem; letter-spacing: 2px; padding: 10px 15px; }
 }
 </style>
 </head>
@@ -291,13 +296,14 @@ footer {
     <h2>[09] System Architect</h2>
     <div class="creator-details">
         <div class="card" style="text-align: center; padding: 60px;">
-            <h3 style="font-size: 3rem; margin-bottom: 20px;">Sayani Maity</h3>
-            <p style="margin: 0 auto 15px; font-size: 1.3rem; color: #fff;"><strong>Professional Designation:</strong> Certified Ethical Hacker</p>
-            <p style="margin: 0 auto 15px; font-size: 1.1rem; color: #aaddcc;"><strong>Specialization:</strong> Digital Forensics, Cryptographic Analysis, and Threat Intelligence.</p>
+            <h3 style="font-size: 3rem; margin-bottom: 5px;">Sayani Maity</h3>
+            <p style="color: #00ffcc; font-size: 1.1rem; margin-bottom: 20px; opacity: 0.8;">B.Sc.Digital Forensic Student</p>
             
-            <div class="badge" style="background: rgba(255, 204, 0, 0.2); color: #ffcc00; border-color: #ffcc00; margin: 30px 0; font-size: 1.2rem;">
-                (CEH) v13 AI Certified
+            <div class="designation-box">
+                CERTIFIED ETHICAL HACKER (CEH) V13 AI
             </div>
+
+            <p style="margin: 20px auto 15px; font-size: 1.1rem; color: #aaddcc;"><strong>Specialization:</strong> OSINT (Open Source Intelligence), Digital Forensics, Cryptographic Analysis, and Threat Intelligence.</p>
             
             <p style="margin: 30px auto 0; font-style: italic; color: #666; font-size: 1rem;">"Mastering the intersection of traditional forensics and Artificial Intelligence to secure the digital frontier."</p>
         </div>
