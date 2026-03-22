@@ -22,6 +22,7 @@ These tools are basic but useful for learning digital forensics and simple analy
 - File upload → hash generator.  
 - Better UI design.  
 - More forensic tools.    
+- More OSINT Features. 
 The following features are planned and will be added as the project evolves.
 
 ---
